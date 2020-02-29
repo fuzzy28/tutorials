@@ -18,6 +18,7 @@
 
   <modules>
     <module>src/books-app</module>
+    <module>cucumber-poc</module>
   </modules>
 
 
