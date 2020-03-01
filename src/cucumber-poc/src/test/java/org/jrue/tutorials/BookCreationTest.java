@@ -7,7 +7,7 @@ import cucumber.api.java.en.When;
 import org.jrue.tutorials.dao.BookDao;
 import org.junit.Assert;
 
-public class BookTest {
+public class BookCreationTest {
 
     private BookDao dao;
 
@@ -21,14 +21,17 @@ public class BookTest {
         Assert.assertNotNull(dao);
     }
 
-
-    @When("User try to add new book with title {string} and rating {string}")
-    public void createNewBook(String title, String rating) {
-        System.out.println("Title: " + title + ", rating: " + rating);
+    @When("User try to add new book with title {string} and rating {double}")
+    public void createNewBook(String title, Double rating) {
+        Book b = new Book();
+        b.setTitle(title);
+        b.setRating(rating);
+        dao.add(b);
     }
 
     @Then("{string} will be available in the list of books")
     public void bookIsAvailable(String book) {
-        System.out.println("Title: " + book);
+        Assert.assertEquals(book, dao.findbyTitle(book).getTitle());
     }
+
 }

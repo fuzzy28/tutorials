@@ -18,6 +18,10 @@ public class BookDao {
         return books.getOrDefault(id, new Book());
     }
 
+    public Book findbyTitle(String title) {
+        return books.values().stream().filter(b -> b.getTitle().equals(title)).findFirst().get();
+    }
+
     public Book add(Book book) {
         int id = 1;
         if(!books.isEmpty()) {
