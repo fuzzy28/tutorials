@@ -16,6 +16,5 @@ public class CucumberRegistryConfigurer implements TypeRegistryConfigurer {
     public void configureTypeRegistry(TypeRegistry typeRegistry) {
         typeRegistry.defineDataTableType(
                 new DataTableType(CucumberBookTransformer.class, new CucumberBookTransformer()));
-
     }
 }

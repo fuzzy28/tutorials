@@ -5,7 +5,6 @@ import io.cucumber.datatable.TableTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CucumberBookTransformer implements TableTransformer<CucumberBookTransformer> {
 
@@ -13,13 +12,14 @@ public class CucumberBookTransformer implements TableTransformer<CucumberBookTra
 
     @Override
     public CucumberBookTransformer transform(DataTable dataTable) throws Throwable {
+        CucumberBookTransformer transformer = new CucumberBookTransformer();
         dataTable.cells().stream().forEach(b -> {
             Book book = new Book();
             book.setTitle(b.get(0));
             book.setRating(Double.valueOf(b.get(1)));
-            books.add(book);
+            transformer.books.add(book);
         });
-        return this;
+        return transformer;
     }
 
     public List<Book> getBooks() {

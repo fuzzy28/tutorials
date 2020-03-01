@@ -2,8 +2,10 @@ package org.jrue.tutorials;
 
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.jrue.tutorials.dao.BookDao;
+import org.junit.Assert;
 
 public class BookUpdateTest {
 
@@ -20,10 +22,15 @@ public class BookUpdateTest {
     }
 
     @When("I update the rating of {string} to {string}")
-    public void i_update_the_rating_of_to(String title, String rating) {
+    public void updateRatingOfBook(String title, String rating) {
        Book b = dao.findbyTitle(title);
        b.setRating(Double.valueOf(rating));
        dao.update(b.getId(), b);
+    }
+
+    @Then("the rating of {string} is now {string}")
+    public void ratingIsUpdated(String title, String rating) {
+        Assert.assertEquals(Double.valueOf(rating).doubleValue(), dao.findbyTitle(title).getRating(), 0.001);
     }
 
 }
