@@ -18,7 +18,8 @@
 
   <modules>
     <module>src/books-app</module>
-    <module>cucumber-poc</module>
+    <module>src/cucumber-poc</module>
+    <module>src/springboot-kafka-producer</module>
   </modules>
 
 
