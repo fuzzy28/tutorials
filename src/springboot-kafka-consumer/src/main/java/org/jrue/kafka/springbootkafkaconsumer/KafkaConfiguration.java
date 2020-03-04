@@ -21,24 +21,37 @@ public class KafkaConfiguration {
     private String bootstrapServer;
 
     @Bean
-    public Map<String,Object> consumerConfigs() {
+    public Map<String,Object> stringConsumerConfigs() {
         Map<String,Object> config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_string");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         return config;
     }
 
     @Bean
-    public DefaultKafkaConsumerFactory createConsumerFactory() {
-        return new DefaultKafkaConsumerFactory(consumerConfigs());
+    public Map<String,Object> jsonConsumerConfigs() {
+        Map<String,Object> config = new HashMap<>();
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_json");
+        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        return config;
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory listenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory stringListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory factory = new ConcurrentKafkaListenerContainerFactory();
-        factory.setConsumerFactory(createConsumerFactory());
+        factory.setConsumerFactory(new DefaultKafkaConsumerFactory(stringConsumerConfigs()));
+        return factory;
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory jsonListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory factory = new ConcurrentKafkaListenerContainerFactory();
+        factory.setConsumerFactory(new DefaultKafkaConsumerFactory(jsonConsumerConfigs(), StringDeserializer::new,
+                () -> new JsonDeserializer<>(Book.class)));
         return factory;
     }
 }
