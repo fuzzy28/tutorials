@@ -17,9 +17,12 @@
 
 
   <modules>
-    <module>src/books-app</module>
     <module>src/cucumber-poc</module>
+    <module>src/quarkus-books-app</module>
+    <module>src/springboot-elasticsearch</module>
     <module>src/springboot-kafka-producer</module>
+    <module>src/springboot-kafka-consumer</module>
+    <module>src/spring-boot-config-server</module>
   </modules>
 
 
