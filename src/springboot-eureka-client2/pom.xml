@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.jrue</groupId>
-	<artifactId>springboot-eureka-client1</artifactId>
+	<artifactId>springboot-eureka-client2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-eureka-client1</name>
+	<name>springboot-eureka-client2</name>
 	<description>Demo project for Spring cloud eureka client</description>
 
 	<properties>
@@ -36,18 +36,6 @@
 		<dependency>
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-stdlib-jdk8</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
