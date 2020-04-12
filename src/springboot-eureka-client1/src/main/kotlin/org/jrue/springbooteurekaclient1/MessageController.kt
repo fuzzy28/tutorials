@@ -1,5 +1,6 @@
 package org.jrue.springbooteurekaclient1
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,6 +20,7 @@ class MessageController {
     data class Person(val userId: Int, val name: String);
 
     @GetMapping("/{userId}")
+    @HystrixCommand(fallbackMethod = "getDefaultMessage")
     fun getMessage(@PathVariable userId: String): String {
         var responseEntity: ResponseEntity<Person> = restTemplate.getForEntity("http://client2/users/$userId", Person::class.java);
         var id: Int? = responseEntity.body?.userId;
@@ -28,5 +30,10 @@ class MessageController {
         }
         return "$name";
     }
+
+    fun getDefaultMessage(@PathVariable userId: String): String {
+        return "This is a default message!"
+    }
+
 
 }
