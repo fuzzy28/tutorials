@@ -1,5 +1,6 @@
 package org.jrue.springbootsecurity;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,16 +11,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.sql.DataSource;
+
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        UserDetails user = User.withUsername("user").password("password").roles("user").build();
-        UserDetails admin = User.withUsername("admin").password("password").roles("user","admin").build();
-        auth.inMemoryAuthentication()
-            .withUser(user).withUser(admin);
+        auth.jdbcAuthentication().dataSource(dataSource);
     }
 
     @Override
